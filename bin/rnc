@@ -1,0 +1,39 @@
+#!/usr/bin/ruby
+
+require_relative "../lib/cbratools"
+
+def help_text
+  <<-USAGE
+rnc [-v] CurrentName NewName PATH
+
+Rename CBRA components.
+
+Pass no options to see this help text.
+
+Option -v is for verbose output.
+  USAGE
+end
+
+current_name = nil
+new_name = nil
+verbose = true
+
+if ARGV.size == 1 && %w(-h -H --help).include?(ARGV[0])
+  puts help_text
+  exit 0
+end
+
+
+if ARGV.size == 3 || ARGV.size == 4
+  current_name = ARGV[ARGV.size - 3]
+  new_name = ARGV[ARGV.size - 2]
+  path = ARGV[ARGV.size - 1]
+  verbose = ARGV.size == 4 && ARGV[0] == '-v'
+end
+
+if !current_name || !new_name || !path
+  puts help_text
+  exit 1
+end
+
+Cbratools::RenameComponent.new(current_name, new_name, path, verbose).run

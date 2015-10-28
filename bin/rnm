@@ -1,0 +1,41 @@
+#!/usr/bin/ruby
+
+require_relative "../lib/cbratools"
+
+def help_text
+  <<-USAGE
+rnm [-v] CurrentName NewName MIGRATIONS_PATH SCHEMA_FILE_PATH
+
+Create migrations to support CBRA component rename.
+
+Pass no options to see this help text.
+
+Option -v is for verbose output.
+  USAGE
+end
+
+current_name = nil
+new_name = nil
+migrations_path = nil
+schema_file_path = nil
+verbose = true
+
+if ARGV.size == 0
+  puts help_text
+  exit 0
+end
+
+if ARGV.size == 4 || ARGV.size == 5
+  current_name = ARGV[ARGV.size - 4]
+  new_name = ARGV[ARGV.size - 3]
+  migrations_path = ARGV[ARGV.size - 2]
+  schema_file_path = ARGV[ARGV.size - 1]
+  verbose = ARGV.size == 5 && ARGV[0] == '-v'
+end
+
+if !current_name || !new_name || !migrations_path || !schema_file_path
+  puts help_text
+  exit 1
+end
+
+Cbratools::ComponentNameChangeMigrations.new(current_name, new_name, migrations_path, schema_file_path).add
