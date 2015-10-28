@@ -33,13 +33,13 @@ Or install it yourself as:
 
 ### rnm
 
-rnm [-v] CurrentName NewName MIGRATIONS_PATH SCHEMA_FILE_PATH
+    rnm [-v] CurrentName NewName MIGRATIONS_PATH SCHEMA_FILE_PATH
 
-Create migrations to support CBRA component rename.
+    Create migrations to support CBRA component rename.
 
-Pass no options to see this help text.
+    Pass no options to see this help text.
 
-Option -v is for verbose output.
+    Option -v is for verbose output.
 
 ## Todos
 
